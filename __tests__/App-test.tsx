@@ -1,14 +1,18 @@
-/**
- * @format
- */
-
-import 'react-native';
 import React from 'react';
-import App from '../App';
+import App from '../src/App';
+import {render} from '@testing-library/react-native';
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
+let props;
+let component: any;
 
-it('renders correctly', () => {
-  renderer.create(<App />);
+const getTempComponent = props => <App {...props} />;
+
+describe('[App] render', () => {
+  props = {}; // fill test props
+  component = getTempComponent(props);
+  test('renders without crashing', () => {
+    const rendered = render(component);
+    expect(rendered).toMatchSnapshot();
+    expect(rendered).toBeTruthy();
+  });
 });
